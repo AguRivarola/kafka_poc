@@ -1,0 +1,5 @@
+FROM base_kfk
+
+ADD main_consumer.py main.py
+
+CMD [ "python", "main.py" ]

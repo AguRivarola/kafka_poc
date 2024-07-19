@@ -1,0 +1,66 @@
+services:
+
+  consumer:
+    image: consumer
+    # build: ./Dockerfile_consumer
+    networks:
+      - in-kafka-network
+    depends_on:
+      - kafka
+      
+  producer:
+    image: producer
+    # build: ./Dockerfile_producer
+    networks:
+      - in-kafka-network
+    depends_on:
+      - kafka
+
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    restart: always
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - ./zookeeper_data:/bitnami
+    networks:
+      - in-kafka-network
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    restart: always
+    hostname: kafka
+    ports:
+      - '9092:9092'
+    volumes:
+      - ./kafka_data:/bitnami
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    networks:
+      - in-kafka-network
+    depends_on:
+      - zookeeper
+      
+  kafka-ui:
+    image: provectuslabs/kafka-ui
+    container_name: kafka-ui-1
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+      - KAFKA_CLUSTERS_0_READONLY=true
+    networks:
+      - in-kafka-network
+    depends_on:
+      - kafka
+    
+networks:
+  in-kafka-network:
+    external: true
+
