@@ -5,3 +5,5 @@ kfk_env
 # Volumenes
 zookeeper_data/
 kafka_data/
+*.json
+__pycache__

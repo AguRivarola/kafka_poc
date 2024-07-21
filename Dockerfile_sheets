@@ -1,0 +1,7 @@
+FROM base_kfk
+
+RUN pip install pygsheets 
+ADD main_sheets.py main.py
+ADD --chmod=510 *.json .
+
+CMD [ "python", "main.py" ]

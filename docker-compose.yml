@@ -7,6 +7,7 @@ services:
       - in-kafka-network
     depends_on:
       - kafka
+      - producer
       
   producer:
     image: producer
@@ -16,6 +17,15 @@ services:
     depends_on:
       - kafka
 
+  sheets:
+    image: sheets
+    # build: ./Dockerfile_producer
+    networks:
+      - in-kafka-network
+    depends_on:
+      - kafka
+      - producer
+
   processor:
     image: processor
     # build: ./Dockerfile_producer
@@ -23,6 +33,7 @@ services:
       - in-kafka-network
     depends_on:
       - kafka
+      - producer
 
   zookeeper:
     image: 'bitnami/zookeeper:latest'
