@@ -35,5 +35,6 @@ python -m pip freeze > requirements.txt
 - docker build -t base_kfk -f DockerfileBaseImg . 
 - docker build -t producer -f Dockerfile_producer .
 - docker build -t consumer -f Dockerfile_consumer .
+- docker build -t processor -f Dockerfile_processor .
 - docker-compose up -d
 ```

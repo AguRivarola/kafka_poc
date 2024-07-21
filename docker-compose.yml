@@ -16,6 +16,14 @@ services:
     depends_on:
       - kafka
 
+  processor:
+    image: processor
+    # build: ./Dockerfile_producer
+    networks:
+      - in-kafka-network
+    depends_on:
+      - kafka
+
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     restart: always
