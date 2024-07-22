@@ -9,6 +9,7 @@ El objetivo de este POC es generar la infraestructura para levantar una API que 
         - pygsheets (sheets)
 
 - Docker
+- Developers Google Proyect (sheets)
 
 # Crear python env
 
@@ -46,7 +47,7 @@ Seguir pasos para authorizar la app y luego podremos generar el docker con nuest
 Crear un nuevo sheet con el nombre `Weather Sheet` en la raiz de google y ya podremos correr la app.
 
 # Probar el proyecto
-
+En caso de no querer generar la integracion de sheets, comentar en el `docker-compose.yml` el servicio `sheets` y descartar su configuracion/build
 ```bash
 - docker build -t base_kfk -f DockerfileBaseImg . 
 - docker build -t producer -f Dockerfile_producer .
